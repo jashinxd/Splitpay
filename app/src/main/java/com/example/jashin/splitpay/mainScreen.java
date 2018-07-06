@@ -70,6 +70,7 @@ public class mainScreen extends AppCompatActivity {
                     } catch (Exception ex) {
                         // Error occurred while creating the File
                     }
+
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
                         Uri photoURI = FileProvider.getUriForFile(context,
@@ -78,7 +79,7 @@ public class mainScreen extends AppCompatActivity {
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
-
+                        //Try adding to gallery
                         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                         File f = new File(photoPath);
                         System.out.println(photoPath);
