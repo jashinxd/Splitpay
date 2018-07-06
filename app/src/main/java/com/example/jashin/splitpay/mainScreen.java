@@ -1,6 +1,7 @@
 package com.example.jashin.splitpay;
 
 // Import stuff
+// Import 2
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
