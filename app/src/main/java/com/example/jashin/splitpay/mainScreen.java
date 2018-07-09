@@ -81,7 +81,11 @@ public class mainScreen extends AppCompatActivity {
 
                         // Process the image
                         imgProc iP = new imgProc(photoPath);
-                        iP.detectText();
+                        try {
+                            iP.detectText();
+                        } catch (Exception e) {
+                            System.out.println("");
+                        }
                     }
                 }
             }
