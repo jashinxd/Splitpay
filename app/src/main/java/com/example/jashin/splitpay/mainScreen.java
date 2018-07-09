@@ -79,15 +79,9 @@ public class mainScreen extends AppCompatActivity {
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
-                        //Try adding to gallery
-                        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                        File f = new File(photoPath);
-                        System.out.println(photoPath);
-                        Uri contentUri = Uri.fromFile(f);
-                        mediaScanIntent.setData(contentUri);
-                        sendBroadcast(mediaScanIntent);
-                    } else {
-                        System.out.println("doesn't work");
+                        // Process the image
+                        imgProc iP = new imgProc(photoPath);
+                        iP.detectText();
                     }
                 }
             }
