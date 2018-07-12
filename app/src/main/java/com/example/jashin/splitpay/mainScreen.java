@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +24,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.content.Context;
 import android.os.Environment;
+
+import com.google.api.gax.paging.Page;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
 
 public class mainScreen extends AppCompatActivity {
 
@@ -79,16 +85,13 @@ public class mainScreen extends AppCompatActivity {
                                 photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                        Log.d("Photo Path", photoPath);
+                        //Log.d("Photo Path", photoPath);
                         // Process the image
                         while (photoFile.length() == 0) {
                         }
                         imgProc iP = new imgProc(photoPath);
-                        try {
-                            iP.detectText();
-                        } catch (Exception e) {
-                            Log.d("Cannot Detect Text", "RIP");
-                        }
+                        Thread t = new Thread(iP);
+                        t.start();
                     }
                 }
             }
