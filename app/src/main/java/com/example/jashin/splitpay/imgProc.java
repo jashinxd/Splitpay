@@ -30,6 +30,8 @@ package com.example.jashin.splitpay;
 //import com.google.api.services.vision.v1.model.AnnotateImageResponse;
 //import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 //import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import android.util.Log;
+
 import com.google.cloud.vision.v1.EntityAnnotation;
 //import com.google.api.services.vision.v1.model.Feature;
 //import com.google.api.services.vision.v1.model.Image;
@@ -61,7 +63,7 @@ import java.util.List;
 
 public class imgProc {
 
-    private static final String CLOUD_VISION_API_KEY = "AIzaSyD7Qsk5Z5rk1owJV3kehudiM3eUZNpUSss";
+    //private static final String CLOUD_VISION_API_KEY = "AIzaSyD7Qsk5Z5rk1owJV3kehudiM3eUZNpUSss";
     private String filePath;
 
     public imgProc(String filePath) {
@@ -78,20 +80,22 @@ public class imgProc {
         AnnotateImageRequest request =
                 AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
         requests.add(request);
-
         try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+            Log.d("gets here", "swag");
             BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
             List<AnnotateImageResponse> responses = response.getResponsesList();
 
 
             for (AnnotateImageResponse res : responses) {
                 if (res.hasError()) {
-                    System.out.printf("Error: %s\n", res.getError().getMessage());
+                    Log.d("Error", res.getError().getMessage());
                     return;
                 }
 
                 // For full list of available annotations, see http://g.co/cloud/vision/docs
                 for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+                    Log.d("Photo Text", annotation.getDescription());
+                    Log.d("Photo Position", annotation.getBoundingPoly().toString());
                     System.out.printf("Text: %s\n", annotation.getDescription());
                     System.out.printf("Position : %s\n", annotation.getBoundingPoly());
                 }

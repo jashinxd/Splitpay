@@ -9,7 +9,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
+
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,12 +31,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.google.cloud:google-cloud-vision:1.31.0'
+    implementation 'com.google.cloud:google-cloud-vision:1.35.0'
 
-    implementation 'com.google.android.gms:play-services:12.0.1'
-    implementation group: 'com.google.api-client', name: 'google-api-client-extensions', version: '1.6.0-beta'
-    implementation group: 'com.google.api-client', name: 'google-api-client-android', version: '1.23.0'
-    implementation group: 'com.google.api-client', name: 'google-api-client-gson', version: '1.23.0'
-    implementation group: 'com.google.apis', name: 'google-api-services-vision', version: 'v1-rev386-1.23.0'
+    //implementation group: 'com.google.api-client', name: 'google-api-client-extensions', version: '1.6.0-beta'
+    //implementation group: 'com.google.api-client', name: 'google-api-client-android', version: '1.23.0'
+    //implementation group: 'com.google.api-client', name: 'google-api-client-gson', version: '1.23.0'
+    //implementation group: 'com.google.apis', name: 'google-api-services-vision', version: 'v1-rev386-1.23.0'
 
 }

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,13 +79,15 @@ public class mainScreen extends AppCompatActivity {
                                 photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-
+                        Log.d("Photo Path", photoPath);
                         // Process the image
+                        while (photoFile.length() == 0) {
+                        }
                         imgProc iP = new imgProc(photoPath);
                         try {
                             iP.detectText();
                         } catch (Exception e) {
-                            System.out.println("");
+                            Log.d("Cannot Detect Text", "RIP");
                         }
                     }
                 }
