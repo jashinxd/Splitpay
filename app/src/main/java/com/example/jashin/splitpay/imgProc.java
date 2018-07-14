@@ -1,73 +1,35 @@
 package com.example.jashin.splitpay;
 
-//import android.Manifest;
-//import android.content.Intent;
-//import android.graphics.Bitmap;
-//import android.net.Uri;
-//import android.os.AsyncTask;
-//import android.os.Bundle;
-//import android.os.Environment;
-//import android.provider.MediaStore;
-//import android.support.annotation.NonNull;
-//import android.support.v4.content.FileProvider;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-//import android.util.Log;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//import android.widget.Toast;
-//
-//import com.google.api.client.extensions.android.http.AndroidHttp;
-//import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-//import com.google.api.client.http.HttpTransport;
-//import com.google.api.client.json.JsonFactory;
-//import com.google.api.client.json.gson.GsonFactory;
-//import com.google.api.services.vision.v1.Vision;
-//import com.google.api.services.vision.v1.VisionRequest;
-//import com.google.api.services.vision.v1.VisionRequestInitializer;
-//import com.google.api.services.vision.v1.model.AnnotateImageRequest;
-//import com.google.api.services.vision.v1.model.AnnotateImageResponse;
-//import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
-//import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
-//import android.util.Log;
-
-import com.google.auth.oauth2.ComputeEngineCredentials;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.vision.v1.EntityAnnotation;
-//import com.google.api.services.vision.v1.model.Feature;
-//import com.google.api.services.vision.v1.model.Image;
-import com.google.cloud.vision.v1.Image;
-import com.google.cloud.vision.v1.Feature;
-import com.google.cloud.vision.v1.AnnotateImageRequest;
-import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
-import com.google.cloud.vision.v1.AnnotateImageResponse;
 
 
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-//import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-//import com.google.android.gms.location.LocationListener;
-//import com.google.android.gms.location.LocationRequest;
-//import com.google.android.gms.location.LocationServices;
-import com.google.cloud.vision.v1.ImageAnnotatorClient;
-import com.google.protobuf.ByteString;
+import android.content.Context;
 
-//import java.io.ByteArrayOutputStream;
-//import java.io.File;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.http.javanet.NetHttpTransport;
+//import com.google.api.client.util.IOUtils;
+//import com.google.api.client.util.IOUtils;
+import com.google.api.services.vision.v1.Vision;
+import com.google.api.services.vision.v1.VisionRequestInitializer;
+import com.google.api.services.vision.v1.model.AnnotateImageRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.Feature;
+import com.google.api.services.vision.v1.model.Image;
+import com.google.api.services.vision.v1.model.TextAnnotation;
+//import com.google.protobuf.ByteString;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-//import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-//import java.util.Locale;
-
-import com.google.api.gax.paging.Page;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class imgProc implements Runnable {
 
@@ -83,15 +45,73 @@ public class imgProc implements Runnable {
         return this.filePath;
     }
 
+
+
+    public void detectText() {
+        Vision.Builder visionBuilder = new Vision.Builder(
+                new NetHttpTransport(),
+                new AndroidJsonFactory(),
+                null);
+
+        visionBuilder.setVisionRequestInitializer(
+                new VisionRequestInitializer("AIzaSyD7Qsk5Z5rk1owJV3kehudiM3eUZNpUSss"));
+
+        Vision vision = visionBuilder.build();
+
+        try {
+
+            File initialFile = new File(this.filePath);
+            InputStream inputStream = new FileInputStream(initialFile);
+            byte[] photoData = IOUtils.toByteArray(inputStream);
+            inputStream.close();
+            Image inputImage = new Image();
+            inputImage.encodeContent(photoData);
+
+            Feature desiredFeature = new Feature();
+            desiredFeature.setType("TEXT_DETECTION");
+
+            AnnotateImageRequest request = new AnnotateImageRequest();
+            request.setImage(inputImage);
+            request.setFeatures(Arrays.asList(desiredFeature));
+
+            BatchAnnotateImagesRequest batchRequest =
+                    new BatchAnnotateImagesRequest();
+            batchRequest.setRequests(Arrays.asList(request));
+
+            BatchAnnotateImagesResponse batchResponse =
+                    vision.images().annotate(batchRequest).execute();
+
+            final TextAnnotation text = batchResponse.getResponses()
+                    .get(0).getFullTextAnnotation();
+            System.out.println("getting here");
+            System.out.println(text.getText());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
     public static void authImplicit() {
         // If you don't specify credentials when constructing the client, the client library will
         // look for credentials via the environment variable GOOGLE_APPLICATION_CREDENTIALS.
-        Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        System.out.println("Buckets:");
-        Page<Bucket> buckets = storage.list();
-        for (Bucket bucket : buckets.iterateAll()) {
-            System.out.println(bucket.toString());
+        System.out.println("adnskandja");
+        try {
+            Storage storage = StorageOptions.newBuilder()
+                    .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("/storage/emulated/0/Android/data/com.example.jashin.splitpay/files/keyfile/keyfile.json")))
+                    .setProjectId("splitpay-209720")
+                    .build()
+                    .getService();
+            System.out.println("Buckets:");
+            Page<Bucket> buckets = storage.list();
+            for (Bucket bucket : buckets.iterateAll()) {
+                System.out.println(bucket.toString());
+            }
+        }
+        catch (IOException e) {
+            System.out.println("gets to catch");
+            e.printStackTrace();
+            System.exit(0);
         }
     }
 
@@ -119,6 +139,8 @@ public class imgProc implements Runnable {
                 AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
         requests.add(request);
         System.out.println("gets here1");
+
+        System.out.println(System.getenv());
         try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
             System.out.println("gets here");
             //Log.d("gets here", "swag");
@@ -142,13 +164,9 @@ public class imgProc implements Runnable {
             }
         }
     }
+    */
 
     public void run() {
-        try {
             detectText();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("IOException");
-        }
     }
 }
