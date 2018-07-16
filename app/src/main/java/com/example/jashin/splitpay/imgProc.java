@@ -20,11 +20,11 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class imgProc implements Runnable, Serializable {
+public class imgProc implements Runnable {
 
     //private static final String CLOUD_VISION_API_KEY = "AIzaSyD7Qsk5Z5rk1owJV3kehudiM3eUZNpUSss";
     private String filePath;
-    private String textDetected;
+    private String textDetected = "";
 
     public imgProc(String filePath) {
         this.filePath = filePath;

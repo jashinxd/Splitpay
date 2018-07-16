@@ -22,8 +22,7 @@ public class mainScreen extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
 
     public static Context context;
-    private String textDetected = "";
-    private imgProc iP = new imgProc("");
+    private String photoPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class mainScreen extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
-            String photoPath = "";
+            photoPath = "";
             try {
                 pU.createImageFile();
                 photoFile = pU.getPic();
@@ -59,9 +58,6 @@ public class mainScreen extends AppCompatActivity {
                 while (photoFile.length() == 0) {
                 }
                 System.out.println(photoPath);
-                iP = new imgProc(photoPath);
-                Thread t = new Thread(iP);
-                t.start();
                 displayItems();
             }
         }
@@ -69,7 +65,7 @@ public class mainScreen extends AppCompatActivity {
 
     public void displayItems() {
         Intent intent = new Intent(this, items.class);
-        intent.putExtra("imgProc",iP);
+        intent.putExtra("photoPath",photoPath);
         startActivity(intent);
     }
 
