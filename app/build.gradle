@@ -40,9 +40,7 @@ dependencies {
 
     implementation group: 'commons-io', name: 'commons-io', version: '2.4'
 
-
     //implementation group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.35.0'
-
 
     //implementation group: 'com.google.api-client', name: 'google-api-client-extensions', version: '1.6.0-beta'
     //implementation group: 'com.google.api-client', name: 'google-api-client-android', version: '1.23.0'
