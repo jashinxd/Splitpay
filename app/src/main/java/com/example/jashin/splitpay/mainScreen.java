@@ -22,27 +22,14 @@ public class mainScreen extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
 
     public static Context context;
+    private String textDetected = "";
+    private imgProc iP = new imgProc("");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         context = getApplicationContext();
-//
-//        Button addBtn = (Button) findViewById(R.id.addBtn);
-//        addBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                EditText firstNumEditText = (EditText) findViewById(R.id.firstNumEditText);
-//                EditText secondNumEditText = (EditText) findViewById(R.id.secondNumEditText);
-//                TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
-//
-//                int num1 = Integer.parseInt(firstNumEditText.getText().toString());
-//                int num2 = Integer.parseInt(secondNumEditText.getText().toString());
-//                int result = num1 + num2;
-//                resultTextView.setText(result + "");
-//            }
-//        });
     }
 
     public void takePhoto(View view) {
@@ -72,11 +59,18 @@ public class mainScreen extends AppCompatActivity {
                 while (photoFile.length() == 0) {
                 }
                 System.out.println(photoPath);
-                imgProc iP = new imgProc(photoPath);
+                iP = new imgProc(photoPath);
                 Thread t = new Thread(iP);
                 t.start();
+                displayItems();
             }
         }
+    }
+
+    public void displayItems() {
+        Intent intent = new Intent(this, items.class);
+        intent.putExtra("imgProc",iP);
+        startActivity(intent);
     }
 
 //    @Override

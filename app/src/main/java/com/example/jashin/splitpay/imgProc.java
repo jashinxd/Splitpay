@@ -17,23 +17,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class imgProc implements Runnable {
+public class imgProc implements Runnable, Serializable {
 
     //private static final String CLOUD_VISION_API_KEY = "AIzaSyD7Qsk5Z5rk1owJV3kehudiM3eUZNpUSss";
     private String filePath;
+    private String textDetected;
 
     public imgProc(String filePath) {
         this.filePath = filePath;
-
     }
 
     public String getFilePath() {
         return this.filePath;
     }
-
-
+    public String getTextDetected() { return this.textDetected; }
+    private void setTextDetected(String text) {
+        this.textDetected = text;
+    }
 
     public void detectText() {
         Vision.Builder visionBuilder = new Vision.Builder(
@@ -72,8 +75,8 @@ public class imgProc implements Runnable {
             final TextAnnotation text = batchResponse.getResponses()
                     .get(0).getFullTextAnnotation();
             System.out.println("getting here");
-            System.out.println(text.getText());
-
+            setTextDetected(text.getText());
+            System.out.println(this.textDetected);
         } catch (Exception e) {
             e.printStackTrace();
         }
