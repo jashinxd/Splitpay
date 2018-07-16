@@ -2,6 +2,7 @@ package com.example.jashin.splitpay;
 
 import android.content.Intent;
 import android.icu.text.SymbolTable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,14 +18,15 @@ public class items extends AppCompatActivity {
     private ProgressBar pB;
     private imgProc iP;
 
-    /*
-    public static class timer implements Runnable {
+    public class timer extends AsyncTask {
 
-        public void run() {
+        protected void doInBackground() {
+            
+        }
+        protected void onPostExecute() {
 
         }
     }
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
