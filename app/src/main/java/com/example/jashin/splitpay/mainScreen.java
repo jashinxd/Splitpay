@@ -64,13 +64,8 @@ public class mainScreen extends AppCompatActivity {
     }
 
     public void displayItems() {
-        Intent intent = new Intent(this, items.class);
+        Intent intent = new Intent(this, Items.class);
         intent.putExtra("photoPath",photoPath);
         startActivity(intent);
     }
-
-//    @Override
-//    protected void onResume() {
-//        takePhoto();
-//    }
 }

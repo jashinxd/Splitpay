@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".items"
+        <activity android:name=".Items"
             android:parentActivityName=".mainScreen">
         </activity>
 
