@@ -41,6 +41,7 @@ public class Items extends AppCompatActivity {
         protected void onPostExecute(String result) {
             pB.setVisibility(View.GONE);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         }
 
         public void processImage(String photoPath) {
@@ -52,15 +53,22 @@ public class Items extends AppCompatActivity {
         public void waitForResults() {
             long startTime = System.currentTimeMillis();
             while (textDetected.isEmpty()) {
-                System.out.println("text detected: " + textDetected);
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    System.out.println("could not sleep");
+                }
                 textDetected = iP.getTextDetected();
-            /*
-            long timeElapsed = 0;
-            while (timeElapsed < 1000) {
-                timeElapsed = System.currentTimeMillis() - startTime;
-            }
-            startTime = System.currentTimeMillis();
-            */
+                System.out.println("text detected: " + textDetected);
+                /*
+                System.out.println("text detected: " + textDetected);
+                long timeElapsed = 0;
+                while (timeElapsed < 1000) {
+                    timeElapsed = System.currentTimeMillis() - startTime;
+                }
+                textDetected = iP.getTextDetected();
+                startTime = System.currentTimeMillis();
+                */
             }
         }
     }
@@ -82,11 +90,11 @@ public class Items extends AppCompatActivity {
         String[] strArray = new String[1];
         strArray[0] = photoPath;
         t.execute(strArray);
-        try {
-            textProcessed = t.get();
-        } catch (Exception e) {
-            System.out.println("processing error");
-        }
+//        try {
+//            textProcessed = t.get();
+//        } catch (Exception e) {
+//            System.out.println("processing error");
+//        }
         System.out.println("done with results");
     }
 
