@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -19,7 +21,9 @@ public class Items extends AppCompatActivity {
     private class Timer extends AsyncTask<String, Void, String> {
 
         private String textDetected = "";
+        private TextView processingText;
         private ProgressBar pB;
+        private Button cancelButton;
         private imgProc iP;
 
         @Override
@@ -31,16 +35,22 @@ public class Items extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            processingText = (TextView) findViewById(R.id.processingText);
+            processingText.setVisibility(View.VISIBLE);
             pB = (ProgressBar) findViewById(R.id.progBar);
             pB.setVisibility(View.VISIBLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            cancelButton = (Button) findViewById(R.id.cancel);
+            cancelButton.setClickable(true);
+//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
 
         @Override
         protected void onPostExecute(String result) {
+            processingText.setVisibility(View.GONE);
             pB.setVisibility(View.GONE);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            cancelButton.setVisibility(View.GONE);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         }
 
