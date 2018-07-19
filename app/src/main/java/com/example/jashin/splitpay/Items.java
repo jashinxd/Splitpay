@@ -17,6 +17,7 @@ public class Items extends AppCompatActivity {
 
     private String photoPath = "";
     private String textProcessed;
+    private Timer t;
 
     private class Timer extends AsyncTask<String, Void, String> {
 
@@ -50,8 +51,7 @@ public class Items extends AppCompatActivity {
             processingText.setVisibility(View.GONE);
             pB.setVisibility(View.GONE);
             cancelButton.setVisibility(View.GONE);
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
+//          getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
 
         public void processImage(String photoPath) {
@@ -61,14 +61,16 @@ public class Items extends AppCompatActivity {
         }
 
         public void waitForResults() {
-            long startTime = System.currentTimeMillis();
             while (textDetected.isEmpty()) {
+                textDetected = iP.getTextDetected();
+                if (isCancelled()) {
+                    break;
+                }
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
                     System.out.println("could not sleep");
                 }
-                textDetected = iP.getTextDetected();
                 System.out.println("text detected: " + textDetected);
                 /*
                 System.out.println("text detected: " + textDetected);
@@ -96,7 +98,7 @@ public class Items extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Timer t = new Timer();
+        t = new Timer();
         String[] strArray = new String[1];
         strArray[0] = photoPath;
         t.execute(strArray);
@@ -110,5 +112,6 @@ public class Items extends AppCompatActivity {
 
     public void cancel(View v) {
         finish();
+        t.cancel(true);
     }
 }

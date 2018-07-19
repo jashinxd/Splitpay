@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,19 @@ public class mainScreen extends AppCompatActivity {
         context = getApplicationContext();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            System.out.println(photoPath);
+            displayItems();
+        }
+    }
+
     public void takePhoto(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoUtils pU = new photoUtils(context);
@@ -47,19 +61,13 @@ public class mainScreen extends AppCompatActivity {
                 // Error occurred while creating the File
             }
             // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(context,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                //Log.d("Photo Path", photoPath);
-                // Process the image
-                while (photoFile.length() == 0) {
-                }
-                System.out.println(photoPath);
-                displayItems();
-            }
+            Uri photoURI = FileProvider.getUriForFile(context,
+                    "com.example.android.fileprovider",
+                    photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            //Log.d("Photo Path", photoPath);
+            // Process the image
         }
     }
 
