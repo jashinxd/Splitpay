@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Total"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +25,14 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:ems="10"
+        android:hint="Number of People"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalPrice"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/finalSplit"
@@ -58,8 +60,79 @@
         android:text="Split"
         app:layout_constraintBottom_toTopOf="@+id/finalSplit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splitNumber"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintVertical_bias="0.852" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/calculate"
+        app:layout_constraintEnd_toStartOf="@+id/otherInput"
+        app:layout_constraintStart_toEndOf="@+id/tipLabel"
+        app:layout_constraintTop_toBottomOf="@+id/splitNumber"
+        app:layout_constraintVertical_bias="0.27">
+
+        <RadioButton
+            android:id="@+id/percent0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%" />
+
+        <RadioButton
+            android:id="@+id/percent15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15%" />
+
+        <RadioButton
+            android:id="@+id/percent18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18%" />
+
+        <RadioButton
+            android:id="@+id/percent20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20%" />
+
+        <RadioButton
+            android:id="@+id/other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tipLabel"
+        android:layout_width="43dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:text="Tip:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/otherInput"
+        android:layout_width="47dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="Other"
+        android:inputType="none"
+        android:enabled="false"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
 </android.support.constraint.ConstraintLayout>
