@@ -76,4 +76,9 @@ public class mainScreen extends AppCompatActivity {
         intent.putExtra("photoPath",photoPath);
         startActivity(intent);
     }
+
+    public void splitEvenly(View view) {
+        Intent intent = new Intent(this, EvenSplit.class);
+        startActivity(intent);
+    }
 }

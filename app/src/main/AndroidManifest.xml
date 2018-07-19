@@ -32,6 +32,10 @@
             android:parentActivityName=".mainScreen">
         </activity>
 
+        <activity android:name=".EvenSplit"
+            android:parentActivityName=".mainScreen">
+        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
