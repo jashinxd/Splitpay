@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.852" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/tipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -105,7 +105,8 @@
         <RadioButton
             android:id="@+id/other"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onOtherClick"/>
     </RadioGroup>
 
     <TextView
@@ -115,10 +116,10 @@
         android:layout_marginStart="16dp"
         android:text="Tip:"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+        app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
+        app:layout_constraintEnd_toStartOf="@+id/tipGroup"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+        app:layout_constraintTop_toTopOf="@+id/tipGroup" />
 
     <EditText
         android:id="@+id/otherInput"
@@ -126,13 +127,13 @@
         android:layout_height="39dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:enabled="false"
         android:hint="Other"
         android:inputType="none"
-        android:enabled="false"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+        app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+        app:layout_constraintStart_toEndOf="@+id/tipGroup"
+        app:layout_constraintTop_toTopOf="@+id/tipGroup" />
 
 </android.support.constraint.ConstraintLayout>
