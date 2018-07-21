@@ -77,6 +77,11 @@ public class mainScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void enterManually(View view) {
+        Intent intent = new Intent(this, ManualEnter.class);
+        startActivity(intent);
+    }
+
     public void splitEvenly(View view) {
         Intent intent = new Intent(this, EvenSplit.class);
         startActivity(intent);
