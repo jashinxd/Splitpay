@@ -22,7 +22,7 @@ public class mainScreen extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
-    public static Context context;
+    public Context context;
     private String photoPath = "";
 
     @Override
