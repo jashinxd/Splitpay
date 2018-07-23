@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -55,23 +56,37 @@ public class ManualEnter extends AppCompatActivity {
     }
 
     public void submitManual(View view) {
-        System.out.println("people.size: " + people.size());
+        boolean invalid_input = false;
         for (int i = 0; i < people.size(); i++) {
+            if (invalid_input) {
+                break;
+            }
             PersonView currentPersonView = people.get(i);
             EditText personField = (EditText) findViewById(currentPersonView.getPersonID());
             System.out.println("currentpersonID: " + currentPersonView.getPersonID());
             String personName = personField.getText().toString();
+            if (personName.isEmpty()) {
+                invalid_input = true;
+                break;
+            }
             System.out.println("new person: " + personName);
             Person newPerson = new Person(currentPersonView.getPersonID(), personName);
             ArrayList<Integer> itemIDs = currentPersonView.getItemIDs();
             for (int j = 0; j < itemIDs.size(); j++) {
                 System.out.println("itemID: " + itemIDs.get(j));
                 EditText itemField = (EditText) findViewById(itemIDs.get(j));
+                if (itemField.getText().toString().isEmpty()) {
+                    invalid_input = true;
+                    break;
+                }
                 float itemPrice = Float.parseFloat(itemField.getText().toString());
                 newPerson.addPersonItem(itemPrice);
-                System.out.println("new item price: " + itemPrice);
             }
         }
-        System.out.println("successful submission");
+        TextView errorTextView = (TextView) findViewById(R.id.errorText);
+        if (invalid_input) {
+            errorTextView.setText("You provided an invalid name/number.");
+            System.out.println("Error msg set");
+        }
     }
 }
