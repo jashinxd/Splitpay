@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintSet;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -13,19 +14,23 @@ import java.util.ArrayList;
 public class PersonView {
 
     private ArrayList<Integer> itemIDs;
+    private ArrayList<Integer> addButtonIDs;
     private View view;
     private ManualEnter ME;
     private int topConstraint;
     private int bottomConstraint;
     private int personID;
+    private int addItemID;
 
     public PersonView(View view, ManualEnter ME, int topConstraint, int bottomConstraint) {
         this.itemIDs = new ArrayList<>(0);
+        this.addButtonIDs = new ArrayList<>(0);
         this.view = view;
         this.ME = ME;
         this.topConstraint = topConstraint;
         this.bottomConstraint = bottomConstraint;
         personID = View.generateViewId();
+        addItemID = View.generateViewId();
     }
 
     public void drawPerson() {
@@ -70,6 +75,35 @@ public class PersonView {
         set.applyTo(mainLayout);
     }
 
+    public void drawAddItemButton() {
+        if (itemIDs.size() == 1) {
+
+            int lastItemID = itemIDs.get(itemIDs.size() - 1);
+
+            Button addItemButton = new Button(ME);
+            addItemButton.setId(addItemID);
+            addButtonIDs.add(addItemID);
+
+            Resources r = ME.getResources();
+            addItemButton.setText("+");
+
+            ConstraintLayout mainLayout = ME.findViewById(R.id.layout1);
+            mainLayout.addView(addItemButton);
+            //ME.setContentView(mainLayout);
+
+            ConstraintSet set = new ConstraintSet();
+            set.constrainHeight(addItemID, 125);
+            set.constrainWidth(addItemID, 125);
+            set.connect(addItemID, ConstraintSet.LEFT,
+                    lastItemID, ConstraintSet.RIGHT, 0);
+            set.connect(addItemID, ConstraintSet.TOP,
+                    lastItemID, ConstraintSet.TOP, 0);
+            set.connect(addItemID, ConstraintSet.BOTTOM,
+                    lastItemID, ConstraintSet.BOTTOM, 0);
+            set.applyTo(mainLayout);
+        }
+    }
+
     public void addItem() {
         ItemView newItem;
         if (itemIDs.isEmpty()) {
@@ -84,7 +118,7 @@ public class PersonView {
         newItem.drawItem();
         EditText newItemView = ME.findViewById(newItemID);
         newItemView.setHint("Item " + itemIDs.size());
-
+        drawAddItemButton();
     }
 
     public ArrayList<Integer> getItemIDs() {
