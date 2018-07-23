@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="fill_parent"
@@ -19,21 +20,80 @@
             android:layout_height="wrap_content"
             android:onClick="addPerson"
             android:text="Add Person"
-            app:layout_constraintBottom_toTopOf="@+id/addItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/addItem"
+        <RadioGroup
+            android:id="@+id/tipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="addItem"
-            android:text="Add Item"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/submitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addPerson" />
+            app:layout_constraintTop_toBottomOf="@+id/addPerson">
+
+            <RadioButton
+                android:id="@+id/percent0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%" />
+
+            <RadioButton
+                android:id="@+id/percent15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15%" />
+
+            <RadioButton
+                android:id="@+id/percent18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18%" />
+
+            <RadioButton
+                android:id="@+id/percent20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20%" />
+
+            <RadioButton
+                android:id="@+id/other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onOtherClick" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tipLabel"
+            android:layout_width="52dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            android:text="Tip:"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
+            app:layout_constraintEnd_toStartOf="@+id/tipGroup"
+            app:layout_constraintTop_toTopOf="@+id/tipGroup" />
+
+        <EditText
+            android:id="@+id/otherInput"
+            android:layout_width="47dp"
+            android:layout_height="39dp"
+            android:layout_marginEnd="28dp"
+            android:ems="10"
+            android:enabled="false"
+            android:hint="Other"
+            android:inputType="none"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tipGroup"
+            app:layout_constraintTop_toTopOf="@+id/tipGroup"
+            app:layout_constraintVertical_bias="0.733" />
 
         <Button
             android:id="@+id/submitButton"
@@ -43,8 +103,7 @@
             android:text="Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addItem" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/errorText"
