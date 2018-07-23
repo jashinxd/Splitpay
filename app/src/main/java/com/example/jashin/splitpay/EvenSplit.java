@@ -74,20 +74,20 @@ public class EvenSplit extends AppCompatActivity {
         String totalGetText = totalText.getText().toString();
         String splitGetText = numberSplitText.getText().toString();
         if (totalGetText.isEmpty() && splitGetText.isEmpty()) {
-            errorMsg = "You did not enter the total and the number of people.";
+            errorMsg = "You did not enter the total and the number of personViews.";
         } else if (totalGetText.isEmpty()) {
             errorMsg = "You did not enter the total.";
         } else if (splitGetText.isEmpty()) {
-            errorMsg = "You did not enter the number of people.";
+            errorMsg = "You did not enter the number of personViews.";
         } else {
             totalPrice = Float.parseFloat(totalText.getText().toString());
             numberToSplit = Integer.parseInt(numberSplitText.getText().toString());
             if ((totalPrice == (float) 0.0) && numberToSplit == 0) {
-                errorMsg = "You have entered 0.00 as the total and 0 as the number of people";
+                errorMsg = "You have entered 0.00 as the total and 0 as the number of personViews";
             } else if (totalPrice == (float) 0.0) {
                 errorMsg = "You have entered 0.00 as the total.";
             } else if (numberToSplit == 0) {
-                errorMsg = "You have entered 0 as the number of people.";
+                errorMsg = "You have entered 0 as the number of personViews.";
             }
         }
     }
