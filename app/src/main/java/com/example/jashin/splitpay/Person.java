@@ -11,6 +11,7 @@ public class Person {
     public Person(int id, String name) {
         this.id = id;
         this.name = name;
+        this.items = new ArrayList<Item>(0);
     }
 
     public void addPersonItem(float price) {
@@ -26,7 +27,7 @@ public class Person {
             this.price = price;
         }
 
-        public float getPrice() {return price;}
+        public float getPrice() { return price; }
     }
 
 }
