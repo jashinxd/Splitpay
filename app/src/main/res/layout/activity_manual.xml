@@ -3,122 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:stretchColumns="1" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/addPerson"
+    <Button
+        android:id="@+id/addPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="addPerson"
+        android:text="Add Person"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/tipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPerson">
+
+        <RadioButton
+            android:id="@+id/percent0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="addPerson"
-            android:text="Add Person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="0%" />
 
-        <RadioGroup
-            android:id="@+id/tipGroup"
+        <RadioButton
+            android:id="@+id/percent15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/submitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addPerson">
+            android:text="15%" />
 
-            <RadioButton
-                android:id="@+id/percent0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0%" />
-
-            <RadioButton
-                android:id="@+id/percent15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15%" />
-
-            <RadioButton
-                android:id="@+id/percent18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="18%" />
-
-            <RadioButton
-                android:id="@+id/percent20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20%" />
-
-            <RadioButton
-                android:id="@+id/other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onOtherClick" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tipLabel"
-            android:layout_width="52dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="8dp"
-            android:text="Tip:"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
-            app:layout_constraintEnd_toStartOf="@+id/tipGroup"
-            app:layout_constraintTop_toTopOf="@+id/tipGroup" />
-
-        <EditText
-            android:id="@+id/otherInput"
-            android:layout_width="47dp"
-            android:layout_height="39dp"
-            android:layout_marginEnd="28dp"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="Other"
-            android:inputType="none"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tipGroup"
-            app:layout_constraintTop_toTopOf="@+id/tipGroup"
-            app:layout_constraintVertical_bias="0.733" />
-
-        <Button
-            android:id="@+id/submitButton"
+        <RadioButton
+            android:id="@+id/percent18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="submitManual"
-            android:text="Submit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="18%" />
 
-        <TextView
-            android:id="@+id/errorText"
-            android:layout_width="250dp"
+        <RadioButton
+            android:id="@+id/percent20"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/submitButton"
-            app:layout_constraintVertical_bias="0.635" />
+            android:text="20%" />
 
-    </android.support.constraint.ConstraintLayout>
+        <RadioButton
+            android:id="@+id/other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onOtherClick" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tipLabel"
+        android:layout_width="52dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:text="Tip:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
+        app:layout_constraintEnd_toStartOf="@+id/tipGroup"
+        app:layout_constraintTop_toTopOf="@+id/tipGroup" />
+
+    <EditText
+        android:id="@+id/otherInput"
+        android:layout_width="47dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Other"
+        android:inputType="none"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tipGroup"
+        app:layout_constraintTop_toTopOf="@+id/tipGroup"
+        app:layout_constraintVertical_bias="0.733" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:onClick="submitManual"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipGroup" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="250dp"
+        android:layout_height="147dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="       "
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -76,33 +76,40 @@ public class PersonView {
     }
 
     public void drawAddItemButton() {
+        ConstraintLayout mainLayout = ME.findViewById(R.id.layout1);
+
+        int lastItemID = itemIDs.get(itemIDs.size() - 1);
         if (itemIDs.size() == 1) {
-
-            int lastItemID = itemIDs.get(itemIDs.size() - 1);
-
             Button addItemButton = new Button(ME);
             addItemButton.setId(addItemID);
             addButtonIDs.add(addItemID);
 
             Resources r = ME.getResources();
             addItemButton.setText("+");
+            addItemButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addItem();
+                    drawAddItemButton();
+                }
+            });
 
-            ConstraintLayout mainLayout = ME.findViewById(R.id.layout1);
             mainLayout.addView(addItemButton);
             //ME.setContentView(mainLayout);
-
-            ConstraintSet set = new ConstraintSet();
-            set.constrainHeight(addItemID, 125);
-            set.constrainWidth(addItemID, 125);
-            set.connect(addItemID, ConstraintSet.LEFT,
-                    lastItemID, ConstraintSet.RIGHT, 0);
-            set.connect(addItemID, ConstraintSet.TOP,
-                    lastItemID, ConstraintSet.TOP, 0);
-            set.connect(addItemID, ConstraintSet.BOTTOM,
-                    lastItemID, ConstraintSet.BOTTOM, 0);
-            set.applyTo(mainLayout);
         }
+
+        ConstraintSet set = new ConstraintSet();
+        set.constrainHeight(addItemID, 125);
+        set.constrainWidth(addItemID, 125);
+        set.connect(addItemID, ConstraintSet.LEFT,
+                lastItemID, ConstraintSet.RIGHT, 0);
+        set.connect(addItemID, ConstraintSet.TOP,
+                lastItemID, ConstraintSet.TOP, 0);
+        set.connect(addItemID, ConstraintSet.BOTTOM,
+                lastItemID, ConstraintSet.BOTTOM, 0);
+        set.applyTo(mainLayout);
     }
+
 
     public void addItem() {
         ItemView newItem;
@@ -112,6 +119,10 @@ public class PersonView {
         } else {
             int prevItemID = itemIDs.get(itemIDs.size() - 1);
             newItem = new ItemView(view, ME, prevItemID, bottomConstraint);
+
+            ConstraintSet set = new ConstraintSet();
+            set.connect(bottomConstraint, ConstraintSet.TOP,
+                    newItem.getItemID(), ConstraintSet.BOTTOM);
         }
         int newItemID = newItem.getItemID();
         itemIDs.add(newItemID);
@@ -127,5 +138,9 @@ public class PersonView {
 
     public int getPersonID() {
         return personID;
+    }
+
+    public void setBottomConstraint(int id) {
+        bottomConstraint = id;
     }
 }

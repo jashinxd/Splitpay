@@ -63,7 +63,7 @@ public class ItemView {
         set.applyTo(mainLayout);
 
         set.clone(mainLayout);
-        set.connect(R.id.addPerson, ConstraintSet.TOP,
+        set.connect(bottomConstraint, ConstraintSet.TOP,
                 itemID, ConstraintSet.BOTTOM, 20);
         set.applyTo(mainLayout);
     }

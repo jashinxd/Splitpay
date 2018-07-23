@@ -50,14 +50,16 @@ public class ManualEnter extends AppCompatActivity {
         PersonView newPerson;
         if (personViews.isEmpty()) {
             newPerson = new PersonView(view, this, ConstraintSet.PARENT_ID, R.id.addPerson);
+            newPerson.drawPerson();
         } else {
             PersonView prevPerson = personViews.get(personViews.size() - 1);
             ArrayList<Integer> prevPersonItems = prevPerson.getItemIDs();
             int prevPersonLastId = prevPersonItems.get(prevPersonItems.size() - 1);
             newPerson = new PersonView(view, this, prevPersonLastId, R.id.addPerson);
+            newPerson.drawPerson();
+            prevPerson.setBottomConstraint(newPerson.getPersonID());
         }
         personViews.add(newPerson);
-        newPerson.drawPerson();
         EditText newPersonView = findViewById(newPerson.getPersonID());
         newPersonView.setHint("Name");
     }
