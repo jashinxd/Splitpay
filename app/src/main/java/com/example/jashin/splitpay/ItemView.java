@@ -45,7 +45,7 @@ public class ItemView {
 
         ConstraintLayout mainLayout = ME.findViewById(R.id.layout1);
         mainLayout.addView(newItem);
-        ME.setContentView(mainLayout);
+        //ME.setContentView(mainLayout);
 
         ConstraintSet set = new ConstraintSet();
         set.constrainHeight(itemID, ConstraintSet.WRAP_CONTENT);

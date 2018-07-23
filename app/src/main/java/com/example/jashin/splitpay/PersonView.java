@@ -43,7 +43,7 @@ public class PersonView {
 
         ConstraintLayout mainLayout = ME.findViewById(R.id.layout1);
         mainLayout.addView(newPerson);
-        ME.setContentView(mainLayout);
+        //ME.setContentView(mainLayout);
 
         ConstraintSet set = new ConstraintSet();
         set.constrainHeight(personID, ConstraintSet.WRAP_CONTENT);
@@ -52,8 +52,13 @@ public class PersonView {
                 ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
         set.connect(personID, ConstraintSet.RIGHT,
                 ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.connect(personID, ConstraintSet.TOP,
-                topConstraint, ConstraintSet.BOTTOM, 0);
+        if (topConstraint == ConstraintSet.PARENT_ID) {
+            set.connect(personID, ConstraintSet.TOP,
+                    topConstraint, ConstraintSet.TOP, 50);
+        } else {
+            set.connect(personID, ConstraintSet.TOP,
+                    topConstraint, ConstraintSet.BOTTOM, 0);
+        }
         //set.connect(personID, ConstraintSet.BOTTOM,
         //        R.id.addPerson, ConstraintSet.TOP, 0);
         set.setHorizontalBias(personID, (float) 0.052);

@@ -37,7 +37,8 @@
         </activity>
 
         <activity android:name=".ManualEnter"
-            android:parentActivityName=".mainScreen">
+            android:parentActivityName=".mainScreen"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
 
         <provider
