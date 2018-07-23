@@ -1,20 +1,12 @@
 package com.example.jashin.splitpay;
 
-import android.app.Person;
-import android.content.ClipData;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ManualEnter extends AppCompatActivity {
 
@@ -57,5 +49,26 @@ public class ManualEnter extends AppCompatActivity {
         newPerson.drawPerson();
         EditText newPersonView = findViewById(newPerson.getPersonID());
         newPersonView.setHint("Name");
+    }
+
+    public void submitManual(View view) {
+        System.out.println("people.size: " + people.size());
+        for (int i = 0; i < people.size(); i++) {
+            PersonView currentPersonView = people.get(i);
+            EditText personField = (EditText) findViewById(currentPersonView.getPersonID());
+            System.out.println("currentpersonID: " + currentPersonView.getPersonID());
+            String personName = personField.getText().toString();
+            System.out.println("new person: " + personName);
+            Person newPerson = new Person(currentPersonView.getPersonID(), personName);
+            ArrayList<Integer> itemIDs = currentPersonView.getItemIDs();
+            for (int j = 0; j < itemIDs.size(); j++) {
+                System.out.println("itemID: " + itemIDs.get(j));
+                EditText itemField = (EditText) findViewById(itemIDs.get(j));
+                float itemPrice = Float.parseFloat(itemField.getText().toString());
+                newPerson.addPersonItem(itemPrice);
+                System.out.println("new item price: " + itemPrice);
+            }
+        }
+        System.out.println("successful submission");
     }
 }
