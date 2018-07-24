@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -107,8 +108,13 @@ public class ManualEnter extends AppCompatActivity {
     }
 
     public void submitManual(View view) {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
         boolean invalid_input = false;
         for (int i = 0; i < personViews.size(); i++) {
+            System.out.println("adding person");
             if (invalid_input) {
                 break;
             }
@@ -124,6 +130,7 @@ public class ManualEnter extends AppCompatActivity {
             Person newPerson = new Person(currentPersonView.getPersonID(), personName);
             ArrayList<Integer> itemIDs = currentPersonView.getItemIDs();
             for (int j = 0; j < itemIDs.size(); j++) {
+                System.out.println("adding item");
                 System.out.println("itemID: " + itemIDs.get(j));
                 EditText itemField = (EditText) findViewById(itemIDs.get(j));
                 if (itemField.getText().toString().isEmpty()) {
@@ -135,33 +142,49 @@ public class ManualEnter extends AppCompatActivity {
             }
             people.add(newPerson);
         }
+        EditText taxView = (EditText) findViewById(R.id.taxInput);
+        taxPercent = Float.parseFloat(taxView.getText().toString());
+        taxPercent /= 100;
+        System.out.println("got tax");
+        setTip();
         TextView errorTextView = (TextView) findViewById(R.id.errorText);
         if (invalid_input) {
             errorTextView.setText("You provided an invalid name/number.");
-            System.out.println("Error msg set");
+            System.out.println("bad input");
         }
         else {
+            System.out.println("going to calculate");
             calculate();
         }
     }
 
     public void calculate() {
+        System.out.println("calculating");
         float subTotal = 0;
         for (int i = 0; i < people.size(); i++) {
+            System.out.println("getting subtotal");
             Person currPerson = people.get(i);
-            for (int j = 0; j < currPerson.getItems().size(); i++) {
+            for (int j = 0; j < currPerson.getItems().size(); j++) {
+                System.out.println("adding subtotal");
                 subTotal += currPerson.getItems().get(j).getPrice();
             }
             currPerson.calculateSubTotal();
+            System.out.println("currPerson subtotal: " + currPerson.getPersonalSubTotal());
         }
         for (int i = 0; i < people.size(); i++) {
+            System.out.println("getting proportions");
             Person currPerson = people.get(i);
             currPerson.setProportion(currPerson.getPersonalSubTotal() / subTotal);
+            System.out.println("currPerson proportion: " + currPerson.getProportion());
         }
         float finalTotal = ((subTotal * (1 + taxPercent)) * (1 + tipPercent));
+        System.out.println("tip: " + tipPercent + " tax: " + taxPercent + " finalTotal: " + finalTotal);
         for (int i = 0; i < people.size(); i++) {
+            System.out.println("getting final totals");
             Person currPerson = people.get(i);
             currPerson.setPersonalTotal(currPerson.getProportion() * finalTotal);
+            System.out.println("currPerson total: " + currPerson.getPersonalTotal());
         }
+        System.out.println("finished calc");
     }
 }
