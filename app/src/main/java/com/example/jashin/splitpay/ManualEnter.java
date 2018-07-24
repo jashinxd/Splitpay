@@ -112,6 +112,7 @@ public class ManualEnter extends AppCompatActivity {
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+        people.clear();
         boolean invalid_input = false;
         for (int i = 0; i < personViews.size(); i++) {
             System.out.println("adding person");
@@ -153,6 +154,7 @@ public class ManualEnter extends AppCompatActivity {
             System.out.println("bad input");
         }
         else {
+            errorTextView.setText("");
             System.out.println("going to calculate");
             calculate();
         }
