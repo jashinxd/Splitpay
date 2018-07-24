@@ -15,14 +15,27 @@
     android:layout_height="wrap_content">
 
     <Button
+        android:id="@+id/removePerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="removePerson"
+        android:text="Remove Person"
+        app:layout_constraintBottom_toBottomOf="@+id/addPerson"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addPerson"
+        app:layout_constraintTop_toTopOf="@+id/addPerson"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/addPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="32dp"
         android:onClick="addPerson"
         android:text="Add Person"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintBottom_toTopOf="@+id/taxInput"
+        app:layout_constraintEnd_toStartOf="@+id/removePerson"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

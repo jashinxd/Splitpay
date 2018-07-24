@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -50,19 +51,34 @@ public class ManualEnter extends AppCompatActivity {
     public void addPerson(View view) {
         PersonView newPerson;
         if (personViews.isEmpty()) {
-            newPerson = new PersonView(view, this, ConstraintSet.PARENT_ID, R.id.addPerson);
-            newPerson.drawPerson();
+            newPerson = new PersonView(view, this, ConstraintSet.PARENT_ID, R.id.removePerson);
+            newPerson.drawNewPerson();
         } else {
             PersonView prevPerson = personViews.get(personViews.size() - 1);
             ArrayList<Integer> prevPersonItems = prevPerson.getItemIDs();
             int prevPersonLastId = prevPersonItems.get(prevPersonItems.size() - 1);
-            newPerson = new PersonView(view, this, prevPersonLastId, R.id.addPerson);
-            newPerson.drawPerson();
+            newPerson = new PersonView(view, this, prevPersonLastId, R.id.removePerson);
+            newPerson.drawNewPerson();
             prevPerson.setBottomConstraint(newPerson.getPersonID());
         }
         personViews.add(newPerson);
         EditText newPersonView = findViewById(newPerson.getPersonID());
         newPersonView.setHint("Name");
+    }
+
+    public void removePerson(View view) {
+        if (personViews.size() > 1) {
+            PersonView personToRemove = personViews.get(personViews.size() - 1);
+            personToRemove.removeAllItems();
+            ViewGroup parentView = (ViewGroup) findViewById(personToRemove.getPersonID()).getParent();
+            parentView.removeView(findViewById(personToRemove.getPersonID()));
+            parentView.removeView(findViewById(personToRemove.getAddItemID()));
+            parentView.removeView(findViewById(personToRemove.getRemoveItemID()));
+
+            PersonView prevPerson = personViews.get(personViews.size() - 1);
+            prevPerson.setBottomConstraint(R.id.addPerson);
+            prevPerson.drawPerson();
+        }
     }
 
     public void onOtherClick(View view) {
