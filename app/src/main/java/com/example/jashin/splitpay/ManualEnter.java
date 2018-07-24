@@ -128,6 +128,7 @@ public class ManualEnter extends AppCompatActivity {
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+        people.clear();
         boolean invalid_input = false;
         for (int i = 0; i < personViews.size(); i++) {
             System.out.println("adding person");
@@ -158,17 +159,27 @@ public class ManualEnter extends AppCompatActivity {
             }
             people.add(newPerson);
         }
-        EditText taxView = (EditText) findViewById(R.id.taxInput);
-        taxPercent = Float.parseFloat(taxView.getText().toString());
-        taxPercent /= 100;
-        System.out.println("got tax");
-        setTip();
         TextView errorTextView = (TextView) findViewById(R.id.errorText);
-        if (invalid_input) {
-            errorTextView.setText("You provided an invalid name/number.");
-            System.out.println("bad input");
+        System.out.println("error set");
+        EditText taxView = (EditText) findViewById(R.id.taxInput);
+        if (taxView.getText().toString().isEmpty()) {
+            invalid_input = true;
+            errorTextView.setText("Please input a tax percentage.");
         }
         else {
+            taxPercent = Float.parseFloat(taxView.getText().toString());
+            System.out.println("tax is : " + taxPercent);
+            taxPercent /= 100;
+            System.out.println("got tax");
+        }
+        setTip();
+        System.out.println("got tip");
+        if (invalid_input && errorTextView.getText().toString().isEmpty()) {
+            errorTextView.setText("You provided an invalid name/price.");
+            System.out.println("bad input");
+        }
+        else if (!invalid_input && !errorTextView.getText().toString().isEmpty()){
+            errorTextView.setText("");
             System.out.println("going to calculate");
             calculate();
         }
