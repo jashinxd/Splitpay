@@ -68,12 +68,15 @@ public class ManualEnter extends AppCompatActivity {
 
     public void removePerson(View view) {
         if (personViews.size() > 1) {
-            PersonView personToRemove = personViews.get(personViews.size() - 1);
+            System.out.println("getssssssss");
+            PersonView personToRemove = personViews.remove(personViews.size() - 1);
             personToRemove.removeAllItems();
+            System.out.println("removes all items");
             ViewGroup parentView = (ViewGroup) findViewById(personToRemove.getPersonID()).getParent();
             parentView.removeView(findViewById(personToRemove.getPersonID()));
             parentView.removeView(findViewById(personToRemove.getAddItemID()));
             parentView.removeView(findViewById(personToRemove.getRemoveItemID()));
+            System.out.println("removes everything");
 
             PersonView prevPerson = personViews.get(personViews.size() - 1);
             prevPerson.setBottomConstraint(R.id.addPerson);

@@ -88,7 +88,7 @@ public class PersonView {
     public void drawAddRemoveItemButton() {
 
         int lastItemID = itemIDs.get(itemIDs.size() - 1);
-        if (itemIDs.size() == 1) {
+        if (ME.findViewById(addItemID) == null) {
             Button addItemButton = new Button(ME);
             addItemButton.setId(addItemID);
             Resources r = ME.getResources();
@@ -97,7 +97,7 @@ public class PersonView {
                 @Override
                 public void onClick(View view) {
                     addItem();
-                    drawAddRemoveItemButton();
+                    //drawAddRemoveItemButton();
                 }
             });
 
@@ -108,7 +108,7 @@ public class PersonView {
                 @Override
                 public void onClick(View view) {
                     removeItem();
-                    drawAddRemoveItemButton();
+                    //drawAddRemoveItemButton();
                 }
             });
 
@@ -177,7 +177,9 @@ public class PersonView {
 
     public void removeAllItems() {
         while (itemIDs.size() > 0) {
-            removeItem();
+            int itemToRemove = itemIDs.remove(itemIDs.size() - 1);
+            ViewGroup parentView = (ViewGroup) ME.findViewById(itemToRemove).getParent();
+            parentView.removeView(ME.findViewById(itemToRemove));
         }
     }
 
